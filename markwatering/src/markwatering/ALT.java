@@ -42,16 +42,16 @@ public class ALT {
 		int encoded_text_size = textToEncode.length();
 		byte data [] = new byte[3];
 		done:
-		for (int x = 0; x+4 < inImage.cols(); x+=4) {
-			for (int y = 0; y+4 < inImage.rows(); y+=4) {
-				Rect r = new Rect(x,y,4, 4);
+		for (int x = 0; x + 4 < inImage.cols(); x += 4) {
+			for (int y = 0; y + 4 < inImage.rows(); y += 4) {
+				Rect r = new Rect(x, y, 4, 4);
 				Mat proxy = new Mat(inImage, r);
 				double[] m = Core.mean(proxy).val;
 				//System.out.println(m.length);
 //				System.out.println(m[0]);
 				for (int i = 0; i < proxy.cols(); i++) {
 					for (int j = 0; j < proxy.rows(); j++){
-						proxy.get(i, j, data );
+						proxy.get(i, j, data);
 						if(bit_count < 32) {
 							int v1 = ((encoded_text_size >> bit_count) & 1);
 							if(v1 == 0) {
@@ -60,19 +60,18 @@ public class ALT {
 									data[1] = (byte) (data[1] - (m[0] - 128 - 1));
 									data[2] = (byte) (data[2] - (m[0] - 128 - 1));
 								}
-							}else {
+							} else {
 								if(m[0] < 128) {
 									data[0] = (byte) (data[0] + (128 - m[0] + 1));
 									data[1] = (byte) (data[1] + (128 - m[0] + 1));
 									data[2] = (byte) (data[2] + (128 - m[0] + 1));
 								}
 							}
-						}else {
-							int curPos = bit_count-32;
-							int curBit = curPos%8;
-							int curChar = curPos/8;
-							if( curChar < encoded_text_size)
-							{
+						} else {
+							int curPos = bit_count - 32;
+							int curBit = curPos % 8;
+							int curChar = curPos / 8;
+							if (curChar < encoded_text_size) {
 								int v1 =  ((textToEncode.charAt(curChar) >> curBit) & 1);
 								if(v1 == 0) {
 									if(m[0] > 128) {
@@ -80,19 +79,18 @@ public class ALT {
 										data[1] = (byte) (data[1] - (m[0] - 128 - 1));
 										data[2] = (byte) (data[2] - (m[0] - 128 - 1));
 									}
-								}else{
+								} else {
 									if(m[0] < 128) {
 										data[0] = (byte) (data[0] + (128 - m[0] + 1));
 										data[1] = (byte) (data[1] + (128 - m[0] + 1));
 										data[2] = (byte) (data[2] + (128 - m[0] + 1));
 									}
 								}
-							}else {
+							} else {
 								break done;
 							}
 						}
 						
-
 						proxy.put(i, j, data);
 					}
 				}
@@ -107,18 +105,17 @@ public class ALT {
 		return inImage;
 	}
 	public static String decodeImage(Mat inImage) {
-
 //		System.out.println(inImage.cols());
 //		System.out.println(inImage.rows());
 		int bit_count = 0;
 		List<Byte> decoded_string = new ArrayList<Byte>();
 		int encoded_text_size = 0;
 		byte chr = 0;
-		byte data [] = new byte[3];
+//		byte data [] = new byte[3];
 		done:
-		for (int x = 0; x+4 < inImage.cols(); x+=4) {
-			for (int y = 0; y+4 < inImage.rows(); y+=4) {
-				Rect r = new Rect(x,y,4, 4);
+		for (int x = 0; x + 4 < inImage.cols(); x += 4) {
+			for (int y = 0; y + 4 < inImage.rows(); y += 4) {
+				Rect r = new Rect(x, y, 4, 4);
 				Mat proxy = new Mat(inImage, r);
 				double[] m = Core.mean(proxy).val;
 				//System.out.println(m.length);
@@ -127,24 +124,21 @@ public class ALT {
 				if(m[0] > 128) {
 					c = 1;
 				}
-				if(bit_count < 32)
-				{
+				if(bit_count < 32) {
 					encoded_text_size = encoded_text_size | ((c & 1) << bit_count);
-				}
-				else
-				{
-					int curPos = bit_count-32;
-					int curBit = curPos%8;
-					int curChar = curPos/8;
-					if( curChar < encoded_text_size)
+				} else {
+					int curPos = bit_count - 32;
+					int curBit = curPos % 8;
+					int curChar = curPos / 8;
+					if(curChar < encoded_text_size)
 					{
-						if( curBit == 0) {
+						if(curBit == 0) {
 							chr = 0;
 							decoded_string.add(chr);
 						}
 						chr = (byte) (chr | ((c & 1) << curBit));
 						decoded_string.set(curChar, chr);
-					}else {
+					} else {
 						break done;
 					}
 				}
