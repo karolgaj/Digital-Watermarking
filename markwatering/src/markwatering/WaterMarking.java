@@ -19,17 +19,17 @@ public class WaterMarking {
 		String location = "resources/lena_std.png";
 		String msg = "TopSecretMessageTopSecretMessageTopSecretMessageTopSecretMessage";
 		
-//		Mat imageDist = Imgcodecs.imread(location);
-//		Mat resDist = Distortion.distortImage(imageDist, 5);
-//		Imgcodecs.imwrite("resources/lena_res_dist.png", resDist);
+		Mat imageDist = Imgcodecs.imread(location);
+		Mat resDist = Distortion.distortImage(imageDist, 50);
+		Imgcodecs.imwrite("resources/lena_res_dist.png", resDist);
 		
 //		Mat imageALT = Imgcodecs.imread(location);
-//		Mat resALT = ALT.encodeImage(imageALT, "TopSecretMessage");
+//		Mat resALT = ALT.encodeImage(imageALT, "123132");
 //		Imgcodecs.imwrite("resources/lena_res_alt.png", resALT);
 //		String resultALT = ALT.decodeImage(resALT);
 		
 //		Mat imageLSB = Imgcodecs.imread(location);
-//		Mat resLSB = LSB.encodeImage(imageLSB, "SuperTajna");
+//		Mat resLSB = LSB.encodeImage(imageLSB, "123123");
 //		Imgcodecs.imwrite("resources/lena_res_lsb.jpg", resLSB);
 //		String resultLSB = LSB.decodeImage(resLSB);
 		
@@ -38,19 +38,46 @@ public class WaterMarking {
 		
 		/*Mat[] imagesLSB = new Mat[100];
 		
-		for(int i = 0; i < 100; i++) {
+		for(int i = 20; i < 30; i++) {
 			imagesLSB[i] = Imgcodecs.imread(location);
-			Mat resLSB = LSB.encodeImage(imagesLSB[i], "SuperTajnaWiadomosc");
+			Mat resLSB = LSB.encodeImage(imagesLSB[i], msg);
 			String source = "resources/compressionLSB/lena_res_" + (i + 1) + ".png";
 			Imgcodecs.imwrite(source, resLSB);
 //			String resultLSB = LSB.decodeImage(resLSB);
+		}
+		
+		Mat[] imagesALT = new Mat[100];
+		
+		for(int i = 20; i < 30; i++) {
+			imagesALT[i] = Imgcodecs.imread(location);
+			Mat resALT = ALT.encodeImage(imagesALT[i], msg);
+			String source = "resources/compressionALT/lena_res_" + (i + 1) + ".png";
+			Imgcodecs.imwrite(source, resALT);
+//			String resultLSB = LSB.decodeImage(resLSB);
 		}*/
-		/*Mat[] resultsLSB = new Mat[100];
-		for(int i = 0; i < 1; i++) {
+		/*Mat[] resultsALT = new Mat[100];
+		for(int i = 10; i < 20; i++) {
+			String source = "resources/compressionALT/results/lena_res_" + (i + 1) + "-min.png";
+			resultsALT[i] = Imgcodecs.imread(source);
+			String resultALT = ALT.decodeImage(resultsALT[i]);
+			System.out.println("Result ALT: " + resultALT);
+			zapisALT.println(resultALT);
+			
+			int diffCount = 0;
+			for(int j = 0; j < msg.length(); j++) {
+				if(msg.charAt(j) != resultALT.charAt(j))
+					diffCount++;
+			}
+			diffCountALT.println(diffCount);
+		}
+		
+		Mat[] resultsLSB = new Mat[100];
+		for(int i = 10; i < 20; i++) {
 			String source = "resources/compressionLSB/results/lena_res_" + (i + 1) + "-min.png";
 			resultsLSB[i] = Imgcodecs.imread(source);
 			String resultLSB = LSB.decodeImage(resultsLSB[i]);
-			zapis.println(resultLSB);
+			//System.out.println("Result LSB: " + resultLSB);
+			zapisLSB.println(resultLSB);
 		}*/
 		
 		/*Mat[] imagesALT = new Mat[100];
@@ -58,7 +85,7 @@ public class WaterMarking {
 		for(int i = 20; i < 30; i++) {
 			imagesALT[i] = Imgcodecs.imread(location);
 			Mat resALT = ALT.encodeImage(imagesALT[i], msg);
-			Mat resDist = Distortion.distortImage(resALT, 1);
+			Mat resDist = Distortion.distortImage(resALT, 5);
 			String source = "resources/distortionALT/lena_res_" + (i + 1) + ".png";
 			Imgcodecs.imwrite(source, resDist);
 		}
@@ -77,14 +104,14 @@ public class WaterMarking {
 					diffCount++;
 			}
 			diffCountALT.println(diffCount);			
-		}*/
+		}
 		
 		Mat[] imagesLSB = new Mat[100];
 		
 		for(int i = 20; i < 30; i++) {
 			imagesLSB[i] = Imgcodecs.imread(location);
 			Mat resLSB = LSB.encodeImage(imagesLSB[i], msg);
-			Mat resDist = Distortion.distortImage(resLSB, 1);
+			Mat resDist = Distortion.distortImage(resLSB, 5);
 			String source = "resources/distortionLSB/lena_res_" + (i + 1) + ".png";
 			Imgcodecs.imwrite(source, resDist);
 		}
@@ -104,7 +131,7 @@ public class WaterMarking {
 					diffCount++;
 			}
 			diffCountLSB.println(diffCount);			
-		}
+		}*/
 	
 		zapisALT.close();
 		zapisLSB.close();

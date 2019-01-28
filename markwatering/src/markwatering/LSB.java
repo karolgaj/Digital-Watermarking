@@ -95,6 +95,7 @@ public class LSB {
 		System.out.println(encoded_text_size);
 		System.out.println("LSB decoding done!");
 		return byteListToString(decoded_string, StandardCharsets.UTF_8);
+		//return Integer.toString(encoded_text_size);
 	}
 	
 }
