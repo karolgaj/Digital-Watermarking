@@ -1,22 +1,14 @@
 package markwatering;
 
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
 import org.opencv.core.Core
 
 ;
-
-import org.opencv.core.Core;
 
 
 public class ALT {
@@ -56,15 +48,15 @@ public class ALT {
 							int v1 = ((encoded_text_size >> bit_count) & 1);
 							if(v1 == 0) {
 								if(m[0] > 128) {
-									data[0] = (byte) (data[0] - (m[0] - 128 - 1));
-									data[1] = (byte) (data[1] - (m[0] - 128 - 1));
-									data[2] = (byte) (data[2] - (m[0] - 128 - 1));
+									data[0] = (byte) (data[0] - (m[0] - 135 - 1));
+									data[1] = (byte) (data[1] - (m[0] - 135 - 1));
+									data[2] = (byte) (data[2] - (m[0] - 135 - 1));
 								}
 							} else {
 								if(m[0] < 128) {
-									data[0] = (byte) (data[0] + (128 - m[0] + 1));
-									data[1] = (byte) (data[1] + (128 - m[0] + 1));
-									data[2] = (byte) (data[2] + (128 - m[0] + 1));
+									data[0] = (byte) (data[0] + (135 - m[0] + 1));
+									data[1] = (byte) (data[1] + (135 - m[0] + 1));
+									data[2] = (byte) (data[2] + (135 - m[0] + 1));
 								}
 							}
 						} else {
@@ -75,15 +67,15 @@ public class ALT {
 								int v1 =  ((textToEncode.charAt(curChar) >> curBit) & 1);
 								if(v1 == 0) {
 									if(m[0] > 128) {
-										data[0] = (byte) (data[0] - (m[0] - 128 - 1));
-										data[1] = (byte) (data[1] - (m[0] - 128 - 1));
-										data[2] = (byte) (data[2] - (m[0] - 128 - 1));
+										data[0] = (byte) (data[0] - (m[0] - 135 - 1));
+										data[1] = (byte) (data[1] - (m[0] - 135 - 1));
+										data[2] = (byte) (data[2] - (m[0] - 135 - 1));
 									}
 								} else {
 									if(m[0] < 128) {
-										data[0] = (byte) (data[0] + (128 - m[0] + 1));
-										data[1] = (byte) (data[1] + (128 - m[0] + 1));
-										data[2] = (byte) (data[2] + (128 - m[0] + 1));
+										data[0] = (byte) (data[0] + (135 - m[0] + 1));
+										data[1] = (byte) (data[1] + (135 - m[0] + 1));
+										data[2] = (byte) (data[2] + (135 - m[0] + 1));
 									}
 								}
 							} else {
@@ -126,6 +118,7 @@ public class ALT {
 				}
 				if(bit_count < 32) {
 					encoded_text_size = encoded_text_size | ((c & 1) << bit_count);
+					
 				} else {
 					int curPos = bit_count - 32;
 					int curBit = curPos % 8;
@@ -148,7 +141,7 @@ public class ALT {
 //				System.out.println(m[0]);
 			}
 		}
-
+		System.out.println(encoded_text_size);
 		System.out.println("ALT decoding done!");
 		return byteListToString(decoded_string, StandardCharsets.UTF_8);
 	}
